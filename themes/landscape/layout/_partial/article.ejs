@@ -1,44 +1,92 @@
 <article id="<%= post.layout %>-<%= post.slug %>" class="article article-type-<%= post.layout %>" itemscope itemprop="blogPost">
   <div class="article-meta">
     <%- partial('post/date', {class_name: 'article-date', date_format: null}) %>
-    <%- partial('post/category') %>
+      <%- partial('post/category') %>
   </div>
   <div class="article-inner">
     <%- partial('post/gallery') %>
-    <% if (post.link || post.title){ %>
-      <header class="article-header">
-        <%- partial('post/title', {class_name: 'article-title'}) %>
-      </header>
-    <% } %>
-    <div class="article-entry" itemprop="articleBody">
-      <% if (post.excerpt && index){ %>
-        <%- post.excerpt %>
-        <% if (theme.excerpt_link){ %>
-          <p class="article-more-link">
-            <a href="<%- url_for(post.path) %>#more"><%= theme.excerpt_link %></a>
-          </p>
+      <% if (post.link || post.title){ %>
+        <header class="article-header">
+          <%- partial('post/title', {class_name: 'article-title'}) %>
+        </header>
         <% } %>
-      <% } else { %>
-        <%- post.content %>
-      <% } %>
-    </div>
-    <footer class="article-footer">
-      <a data-url="<%- post.permalink %>" data-id="<%= post._id %>" class="article-share-link"><%= __('share') %></a>
-      <% if (post.comments && config.disqus_shortname){ %>
-        <a href="<%- post.permalink %>#disqus_thread" class="article-comment-link"><%= __('comment') %></a>
-      <% } %>
-      <%- partial('post/tag') %>
-    </footer>
+          <div class="article-entry" itemprop="articleBody">
+            <% if (post.excerpt && index){ %>
+              <%- post.excerpt %>
+                <% if (theme.excerpt_link){ %>
+                  <p class="article-more-link">
+                    <a href="<%- url_for(post.path) %>#more">
+                      <%= theme.excerpt_link %>
+                    </a>
+                  </p>
+                  <% } %>
+                    <% } else { %>
+                      <%- post.content %>
+                        <% } %>
+                          <!--PC和WAP自适应版-->
+                          <div id="SOHUCS"></div>
+                          <script type="text/javascript">
+                            (function () {
+                              var appid = 'cytdGQKjT';
+                              var conf = 'prod_77ee212d4cf924aa2c36637159f5d73d';
+                              var width = window.innerWidth || document.documentElement.clientWidth;
+                              if (width < 960) {
+                                window.document.write(
+                                  '<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="http://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' +
+                                  appid + '&conf=' + conf + '"><\/script>');
+                              } else {
+                                var loadJs = function (d, a) {
+                                  var c = document.getElementsByTagName("head")[0] || document.head || document.documentElement;
+                                  var b = document.createElement("script");
+                                  b.setAttribute("type", "text/javascript");
+                                  b.setAttribute("charset", "UTF-8");
+                                  b.setAttribute("src", d);
+                                  if (typeof a === "function") {
+                                    if (window.attachEvent) {
+                                      b.onreadystatechange = function () {
+                                        var e = b.readyState;
+                                        if (e === "loaded" || e === "complete") {
+                                          b.onreadystatechange = null;
+                                          a()
+                                        }
+                                      }
+                                    } else {
+                                      b.onload = a
+                                    }
+                                  }
+                                  c.appendChild(b)
+                                };
+                                loadJs("http://changyan.sohu.com/upload/changyan.js", function () {
+                                  window.changyan.api.config({
+                                    appid: appid,
+                                    conf: conf
+                                  })
+                                });
+                              }
+                            })();
+                          </script>
+          </div>
+          <footer class="article-footer">
+            <a data-url="<%- post.permalink %>" data-id="<%= post._id %>" class="article-share-link">
+              <%= __('share') %>
+            </a>
+            <% if (post.comments && config.disqus_shortname){ %>
+              <a href="<%- post.permalink %>#disqus_thread" class="article-comment-link">
+                <%= __('comment') %>
+              </a>
+              <% } %>
+                <%- partial('post/tag') %>
+          </footer>
   </div>
   <% if (!index){ %>
     <%- partial('post/nav') %>
-  <% } %>
+      <% } %>
 </article>
 
 <% if (!index && post.comments && config.disqus_shortname){ %>
-<section id="comments">
-  <div id="disqus_thread">
-    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-  </div>
-</section>
-<% } %>
+  <section id="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+  </section>
+  <% } %>

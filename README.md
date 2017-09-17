@@ -1,0 +1,1 @@
+[![Build Status](https://www.travis-ci.org/AmberCC25/ambercc.com.svg?branch=master)](https://www.travis-ci.org/AmberCC25/ambercc.com)
